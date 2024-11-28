@@ -1,0 +1,15 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.openjfx:javafx-controls:17'
+}
+
+application {
+    mainClass = 'htl.steyr.kalender.AdventCalendar'
+}
