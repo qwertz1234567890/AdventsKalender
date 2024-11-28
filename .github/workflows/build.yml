@@ -27,15 +27,15 @@ jobs:
 
       - name: Create JAR file
         run: |
-          mkdir -p docs/downloads
-          cp target/*.jar docs/downloads/advent-calendar.jar
-          ls -alh docs/downloads
+          mkdir -p target/downloads
+          cp target/*.jar target/downloads/advent-calendar.jar
+          ls -alh target/downloads
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v3
         with:
           name: advent-calendar-jar
-          path: docs/downloads/advent-calendar.jar
+          path: target/downloads/advent-calendar.jar
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,11 +49,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: advent-calendar-jar
-          path: ./docs/downloads
+          path: ./target/downloads
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
-          publish_dir: ./docs
+          personal_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/downloads
           destination_dir: .
