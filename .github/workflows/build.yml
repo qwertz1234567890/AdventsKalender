@@ -51,8 +51,17 @@ jobs:
           name: advent-calendar-jar
           path: ./downloads
 
+      - name: Debug - List files in downloads
+        run: ls -alh ./downloads
+
       - name: Rename downloaded artifact
-        run: mv ./downloads/*.jar ./downloads/advent-calendar.jar
+        run: |
+          if [ -f ./downloads/*.jar ]; then
+            mv ./downloads/*.jar ./downloads/advent-calendar.jar
+          else
+            echo "No JAR file found in downloads directory"
+            exit 1
+          fi
 
       - name: Commit and Push to Main
         run: |
