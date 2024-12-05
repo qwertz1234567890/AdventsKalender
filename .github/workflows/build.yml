@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: advent-calendar-jar
-          path: downloads/advent-calendar.jar
+          path: downloads
 
   deploy:
     runs-on: ubuntu-latest
