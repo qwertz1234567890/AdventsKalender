@@ -56,12 +56,12 @@ jobs:
 
       - name: Rename downloaded artifact
         run: |
-          if [ -f ./downloads/*.jar ]; then
-            mv ./downloads/*.jar ./downloads/advent-calendar.jar
-          else
+          JAR_FILE=$(find ./downloads -name "*.jar" -type f)
+          if [ -z "$JAR_FILE" ]; then
             echo "No JAR file found in downloads directory"
             exit 1
           fi
+          mv "$JAR_FILE" ./downloads/advent-calendar.jar
 
       - name: Commit and Push to Main
         run: |
