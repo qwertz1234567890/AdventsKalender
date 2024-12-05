@@ -34,7 +34,7 @@ jobs:
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v3
         with:
-          name: advent-calendar-jar  # Ensure this matches the name in the deploy job
+          name: advent-calendar-jar
           path: downloads
 
   deploy:
@@ -48,8 +48,11 @@ jobs:
       - name: Download JAR artifact
         uses: actions/download-artifact@v3
         with:
-          name: advent-calendar-jar  # Match the name from the build job
+          name: advent-calendar-jar
           path: ./downloads
+
+      - name: Rename downloaded artifact
+        run: mv ./downloads/*.jar ./downloads/advent-calendar.jar
 
       - name: Commit and Push to Main
         run: |
