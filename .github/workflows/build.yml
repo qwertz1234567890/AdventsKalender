@@ -3,7 +3,7 @@ name: Build and Deploy Advent Calendar
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -27,15 +27,15 @@ jobs:
 
       - name: Create JAR file
         run: |
-          mkdir -p target/downloads
-          cp target/*.jar target/downloads/advent-calendar.jar
-          ls -alh target/downloads
+          mkdir -p downloads
+          cp target/*.jar downloads/advent-calendar.jar
+          ls -alh downloads
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v3
         with:
           name: advent-calendar-jar
-          path: target/downloads/advent-calendar.jar
+          path: downloads/advent-calendar.jar
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,12 +48,13 @@ jobs:
       - name: Download JAR artifact
         uses: actions/download-artifact@v3
         with:
-          name: advent-calendar-jar
-          path: ./target/downloads
+          name: advent-calendar
+          path: ./downloads
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/downloads
-          destination_dir: .
+      - name: Commit and Push to Main
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git add downloads/advent-calendar.jar
+          git commit -m "Add built JAR file"
+          git push origin main
