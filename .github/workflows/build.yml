@@ -28,7 +28,7 @@ jobs:
       - name: Create JAR file
         run: |
           mkdir -p downloads
-          cp target/*.jar downloads/advent-calendar.jar
+          cp target/*.jar downloads/
           ls -alh downloads
 
       - name: Upload JAR artifact
